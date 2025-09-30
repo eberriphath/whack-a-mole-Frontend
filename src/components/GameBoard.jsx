@@ -1,6 +1,6 @@
 import React from "react";
 import moleImg from '../CuteMole.png' ;
-import './Game.css';
+import '../styles/Games.css';
 
 function GameBoard({ moles, handleWhack }) {
   return (
@@ -19,4 +19,3 @@ function GameBoard({ moles, handleWhack }) {
 }
 
 export default GameBoard;
-

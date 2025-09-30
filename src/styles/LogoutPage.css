@@ -1,0 +1,15 @@
+.logout-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #e66465, #9198e5);
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.logout-container h1 {
+  margin-bottom: 10px;
+}

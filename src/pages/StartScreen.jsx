@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './Startscreen.css';
+import '../styles/StartScreen.css';
 import {useNavigate} from 'react-router-dom';
 import moleImg from '../CuteMole.png'; 
 
@@ -37,6 +37,9 @@ function Startscreen() {
       <div className="button-group">
         <button onClick={handleStart}>Start Game</button>
         <button onClick={handleScores}>View Scores</button>
+        <button onClick={() => navigate('/login')}>Login</button>
+        <button onClick={() => navigate('/register')}>Register</button>
+        <button onClick={() => navigate('/logout')}>Logout</button>
       </div>
     </div>
   );
