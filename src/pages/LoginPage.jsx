@@ -1,49 +1,42 @@
-// src/pages/LoginPage.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/LoginPage.css";
 
-function LoginPage() {
+export default function LoginPage() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    // Check registered users first
     const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(u => u.username === username && u.password === password);
-    
-    if (user || (username === "player" && password === "1234")) {
+    const found = users.find(
+      (u) => u.username === username && u.password === password
+    );
+    if (found) {
       localStorage.setItem("user", username);
       navigate("/");
     } else {
-      alert("Invalid credentials!");
+      alert("Invalid credentials");
     }
   };
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
+    <div>
+      <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
-          type="text"
-          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          placeholder="username"
         />
         <input
           type="password"
-          placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder="password"
         />
         <button type="submit">Login</button>
       </form>
-      <p>Don't have an account? <button onClick={() => navigate('/register')}>Register</button></p>
     </div>
   );
 }
-
-export default LoginPage;

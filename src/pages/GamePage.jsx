@@ -1,12 +1,14 @@
-import {useState,useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import GameBoard from "./GameBoard";
-import GameTimer from "./Gametimer";
-import "./GamePage.css";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import GameBoard from "../components/GameBoard";
+import GameTimer from "../components/GameTimer";
+import "../styles/GamePage.css";
 
 function GamePage() {
   const navigate = useNavigate();
-  const level = "medium"; // Default or set manually
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const level = queryParams.get("level") || "medium";
 
   const getSpeed = () => {
     switch (level) {
@@ -17,7 +19,6 @@ function GamePage() {
   };
 
   const moleCount = 9;
-
   const [paused, setPaused] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [resetKey, setResetKey] = useState(0);
@@ -50,6 +51,12 @@ function GamePage() {
   const handleTimeUp = () => {
     setPaused(true);
     setShowMenu(true);
+
+    const currentHighScore = parseInt(localStorage.getItem("highScore")) || 0;
+    if (score > currentHighScore) {
+      localStorage.setItem("highScore", score);
+    }
+
     alert(`Time is up! Your score: ${score}`);
   };
 
