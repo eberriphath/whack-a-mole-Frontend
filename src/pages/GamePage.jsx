@@ -52,10 +52,14 @@ function GamePage() {
     setPaused(true);
     setShowMenu(true);
 
-    const currentHighScore = parseInt(localStorage.getItem("highScore")) || 0;
-    if (score > currentHighScore) {
-      localStorage.setItem("highScore", score);
-    }
+    // Get existing scores array or create new one
+    const scores = JSON.parse(localStorage.getItem("scores") || "[]");
+    scores.push(score); // add current score
+    localStorage.setItem("scores", JSON.stringify(scores));
+
+    // Update high score
+    const highScore = Math.max(...scores);
+    localStorage.setItem("highScore", highScore);
 
     alert(`Time is up! Your score: ${score}`);
   };
@@ -105,6 +109,7 @@ function GamePage() {
               Restart
             </button>
             <button onClick={() => navigate("/")}>Home</button>
+            <button onClick={() => navigate("/scores")}>View Scores</button>
           </>
         )}
       </div>
