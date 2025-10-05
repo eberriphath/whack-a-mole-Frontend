@@ -1,10 +1,21 @@
+/* make the entire page full-screen and remove default browser margins */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* main game container now fills the viewport */
 .game-container {
   background: #b2855e;
-  min-height: 100vh;
+  width: 100vw;          /* full viewport width */
+  height: 100vh;         /* full viewport height */
   font-family: 'Press Start 2P', cursive;
   color: white;
   text-align: center;
   padding: 20px;
+  box-sizing: border-box; /* so padding doesn’t overflow */
 }
 
 .timer {
@@ -18,6 +29,7 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+/* centered grid, but background spans full width */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 100px); 
@@ -26,7 +38,7 @@
   background: #ccc; 
   border-radius: 10px;
   padding: 20px; 
-  width: fit-content;
+  width: fit-content; /* keep grid tight; change to 100% if you want it to stretch */
   margin: 0 auto 20px auto;
   box-shadow: 0 10px 20px rgba(0,0,0,0.5);
   cursor: url('../hammer.png'),auto;
@@ -85,4 +97,3 @@ button:hover {
   flex-wrap: wrap; 
   margin-top: 20px; 
 }
-

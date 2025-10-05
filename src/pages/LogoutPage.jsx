@@ -1,28 +1,23 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/LogoutPage.css";
 
-function LogoutPage() {
+export default function LogoutPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Clear stored user
+    // remove current user from localStorage
     localStorage.removeItem("user");
 
-    // Redirect back to login after 1.5s
-    const timer = setTimeout(() => {
-      navigate("/login");
-    }, 1500);
+    // optionally also clear all users if you want a “hard reset”:
+    // localStorage.removeItem("users");
 
-    return () => clearTimeout(timer);
+    // redirect to login page after logout
+    navigate("/login", { replace: true });
   }, [navigate]);
 
   return (
-    <div className="logout-container">
-      <h1>You’ve been logged out 👋</h1>
-      <p>Redirecting to login...</p>
+    <div>
+      <h2>Logging out...</h2>
     </div>
   );
 }
-
-export default LogoutPage;

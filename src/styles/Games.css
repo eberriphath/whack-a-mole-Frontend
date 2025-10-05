@@ -1,48 +1,119 @@
+/* make page fill the viewport */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* outer game container fills the viewport and centers everything */
+.game-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #b2855e;            /* your brown background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;              /* vertical center */
+  align-items: center;                  /* horizontal center */
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  box-sizing: border-box;
+  padding: 10px; /* less padding so more room for board */
+}
+
+/* optional header/timer styles */
+h2 {
+  font-family: 'Press Start 2P', cursive;
+  color: white;
+  margin: 0 0 15px;
+}
+
+.timer {
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: center;
+  background: green;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* game board centered inside the container */
 .game-board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-gap: 20px;
-    justify-content: center;
-    margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 80px); /* ⬅️ smaller cells */
+  grid-gap: 15px; /* smaller gap */
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* each mole hole */
+.mole-hole {
+  width: 80px;  /* ⬅️ smaller hole but mole stays 80×80 */
+  height: 80px;
+  background-color: #613613; 
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.mole-hole.active {
+  background-color: #7e4b28; 
+}
+
+/* mole image styles and animation — stays at 80×80 */
+.mole-img,
+.mole {
+  width: 80px;  
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  left: 0; /* center in hole */
+  right: 0;
+  margin: auto;
+  animation: popUp 0.3s ease;
+}
+
+@keyframes popUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
   }
- 
-  .mole-hole {
-    width: 100px;
-    height: 100px;
-    background-color: #613613; 
-    border-radius: 50%;
-    position: relative;
-    overflow: hidden;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
   }
-  
-  .mole-hole.active {
-    background-color: #7e4b28; 
-  }
-  
-  .mole-img,
-  .mole {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    bottom: 0;
-    left: 10px;
-    animation: popUp 0.3s ease;
-  }
-  
-  @keyframes popUp {
-    0% {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0%);
-      opacity: 1;
-    }
-  }
-  
-  .mole-hole:hover {
-    box-shadow: 0 0 8px #ffcc00;
-  }
-  
+}
+
+/* hover effect on holes */
+.mole-hole:hover {
+  box-shadow: 0 0 6px #ffcc00;
+}
+
+/* button styles */
+button {
+  background-color: orange;
+  color: black;
+  font-family: 'Press Start 2P', cursive;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+button:hover {
+  background-color: darkorange;
+  transform: scale(1.05);
+}
+
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 8px; 
+  flex-wrap: wrap; 
+  margin-top: 15px; 
+}
