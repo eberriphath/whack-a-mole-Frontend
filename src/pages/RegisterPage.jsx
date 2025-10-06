@@ -4,36 +4,39 @@ import "../styles/RegisterPage.css";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords don't match!");
+      alert("Passwords do not match!");
       return;
     }
 
-    if (username.length < 3) {
-      alert("Username must be at least 3 characters!");
-      return;
-    }
+    try {
+      const res = await fetch("http://localhost:5640/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-    // Store user in localStorage
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    if (users.find(user => user.username === username)) {
-      alert("Username already exists!");
-      return;
-    }
+      const data = await res.json();
 
-    users.push({ username, password });
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("user", username);
-    
-    alert("Registration successful!");
-    navigate("/");
+      if (!res.ok) {
+        alert(data.error || "Registration failed");
+        return;
+      }
+
+      alert(" Registration successful!");
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      alert(" Server error while registering");
+    }
   };
 
   return (
@@ -43,9 +46,16 @@ export default function RegisterPage() {
         <form onSubmit={handleRegister}>
           <input
             type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input

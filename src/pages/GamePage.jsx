@@ -109,7 +109,7 @@ function GamePage() {
               Restart
             </button>
             <button onClick={() => navigate("/")}>Home</button>
-            <button onClick={() => navigate("/scores")}>View Scores</button>
+           
           </>
         )}
       </div>

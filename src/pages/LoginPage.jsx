@@ -4,28 +4,35 @@ import "../styles/LoginPage.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // get users array from localStorage (saved during registration)
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    try {
+      const res = await fetch("http://localhost:5640/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // check if the username + password exist
-    const foundUser = users.find(
-      (u) => u.username === username && u.password === password
-    );
+      const data = await res.json();
 
-    if (foundUser) {
-      // set current user globally in localStorage
-      localStorage.setItem("user", username);
+      if (!res.ok) {
+        alert(data.error || "Login failed");
+        return;
+      }
 
-      // navigate to start screen after login
+      // Save the token and player name locally
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", data.name);
+
+      alert(`🎮 Welcome ${data.name}!`);
       navigate("/");
-    } else {
-      alert("Invalid username or password!");
+    } catch (err) {
+      console.error(err);
+      alert("Server error during login");
     }
   };
 
@@ -35,10 +42,10 @@ export default function LoginPage() {
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input
@@ -54,7 +61,7 @@ export default function LoginPage() {
         <p>
           Don’t have an account?{" "}
           <button type="button" onClick={() => navigate("/register")}>
-            Register here
+            Register
           </button>
         </p>
       </div>

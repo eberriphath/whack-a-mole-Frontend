@@ -48,12 +48,7 @@ function ScorePage() {
         Back to Home
       </button>
 
-      <button
-        style={{ display: "block", margin: "10px auto", background: "tomato", color: "white" }}
-        onClick={() => navigate("/logout")}
-      >
-        Logout
-      </button>
+      
     </div>
   );
 }

@@ -5,14 +5,24 @@ export default function LogoutPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // remove current user from localStorage
-    localStorage.removeItem("user");
+    const logout = async () => {
+      const token = localStorage.getItem("token");
 
-    // optionally also clear all users if you want a “hard reset”:
-    // localStorage.removeItem("users");
+      await fetch("http://localhost:5640/logout", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
 
-    // redirect to login page after logout
-    navigate("/login", { replace: true });
+      // clear all data
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+
+      navigate("/login", { replace: true });
+    };
+
+    logout();
   }, [navigate]);
 
   return (
