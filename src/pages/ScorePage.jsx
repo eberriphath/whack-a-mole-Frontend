@@ -8,7 +8,7 @@ function ScorePage() {
   const playerName = localStorage.getItem("playerName") || "Player";
   const scores = JSON.parse(localStorage.getItem("scores") || "[]");
 
-  // Send all scores to Flask when component mounts
+  
   useEffect(() => {
     const submitScores = async () => {
       try {
