@@ -15,7 +15,7 @@ export default function LogoutPage() {
         },
       });
 
-      // clear all data
+      
       localStorage.removeItem("user");
       localStorage.removeItem("token");
 

@@ -24,11 +24,11 @@ export default function LoginPage() {
         return;
       }
 
-      // Save the token and player name locally
+      
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", data.name);
 
-      alert(`🎮 Welcome ${data.name}!`);
+      alert(`Welcome ${data.name}!`);
       navigate("/");
     } catch (err) {
       console.error(err);
