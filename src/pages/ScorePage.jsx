@@ -20,7 +20,7 @@ function ScorePage() {
         const data = await res.json();
         console.log(data);
       } catch (err) {
-        console.error("Failed to submit scores:", err);
+        console.error("Failed to submit scores:", err);   
       }
     };
 
