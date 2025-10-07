@@ -45,8 +45,8 @@ h2 {
 }
 
 .mole-hole {
-  width: 100px;  
-  height: 100px;
+  width: 80px;  
+  height: 80px;
   background-color: #613613; 
   border-radius: 50%;
   position: relative;
@@ -61,8 +61,8 @@ h2 {
 
 .mole-img,
 .mole {
-  width: 80px;  
-  height: 80px;
+  width: 100px;  
+  height: 100px;
   position: absolute;
   bottom: 0;
   left: 0;
